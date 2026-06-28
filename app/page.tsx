@@ -1,6 +1,10 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useEffect, useMemo, useState } from "react";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const assetPath = (path: string) => `${basePath}${path}`;
 
 const works = [
   {
@@ -147,7 +151,15 @@ export default function Home() {
       </header>
 
       <main id="top">
-        <section className="hero" aria-label="刘小东艺术作品展首屏">
+        <section
+          className="hero"
+          aria-label="刘小东艺术作品展首屏"
+          style={
+            {
+              "--hero-image": `url("${assetPath("/assets/works/sanxia-xinyimin-2004.jpg")}")`,
+            } as CSSProperties
+          }
+        >
           <div className="hero-inner">
             <div className="kicker">现实现场 · 绘画项目 · 人物肖像</div>
             <h1>刘小东</h1>
@@ -200,7 +212,11 @@ export default function Home() {
           <div className="works-grid">
             {visibleWorks.map((work) => (
               <article className="work-card reveal" key={work.title}>
-                <img className="painting" src={work.image} alt={`${work.title}，${work.year}`} />
+                <img
+                  className="painting"
+                  src={assetPath(work.image)}
+                  alt={`${work.title}，${work.year}`}
+                />
                 <div className="work-body">
                   <div className="work-meta">
                     <span>{work.categoryName}</span>
@@ -267,7 +283,7 @@ export default function Home() {
                     className={`carousel-slide ${index === activeSlide ? "is-active" : ""}`}
                     key={slide.title}
                   >
-                    <img src={slide.image} alt={slide.title} />
+                    <img src={assetPath(slide.image)} alt={slide.title} />
                     <figcaption className="carousel-caption">
                       <strong>{slide.title}</strong>
                       <span>{slide.detail}</span>
@@ -335,7 +351,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="visit" className="visit">
+        <section
+          id="visit"
+          className="visit"
+          style={
+            {
+              "--visit-image": `url("${assetPath("/assets/works/housheng-2021.jpg")}")`,
+            } as CSSProperties
+          }
+        >
           <div className="wrap visit-panel">
             <h2 className="reveal">观看一位画家如何把时代画成人。</h2>
             <div className="visit-info reveal">
